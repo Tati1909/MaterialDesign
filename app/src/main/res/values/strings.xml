@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MaterialDesign</string>
+    <string name="picture">picture</string>
+    <string name="today">A</string>
+    <string name="yesterday">B</string>
+    <string name="before_yesterday">C</string>
+    <string name="photo_of_the_day_stub">Фото сегодняшнего дня</string>
+    <string name="search_wiki">Поиск</string>
+    <string name="wiki_helper_text">Максимально допустимое количество букв</string>
 </resources>
