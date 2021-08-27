@@ -1,7 +1,8 @@
 package com.example.materialdesign.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,9 @@ class PictureOfTheDayFragment : Fragment() {
     private val binding: FragmentPictureOfTheDayBinding get() = _binding!!
 
     private val viewModel by lazy { ViewModelProvider(this).get(PictureViewModel::class.java) }
+    //Определим переменную типа BottomSheetBehaviour. В качестве generic передаём тип контейнера
+    //нашего BottomSheet. Этот instance будет управлять нашей нижней панелью.
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,9 +37,12 @@ class PictureOfTheDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.requestPicture()
+
         binding.apply {
-            viewModel.PictureDTO.observe(viewLifecycleOwner) { picture ->
-                textView.text = picture.explanation
+            //объяснение (описание галактики) будет загружаться в bottomSheet
+            viewModel.PictureDTO.observe(viewLifecycleOwner)
+            { picture ->
+                textViewBottomSheet.text = picture.explanation
 
                 if (picture.isImage) {
                     Glide.with(root)
@@ -57,21 +64,30 @@ class PictureOfTheDayFragment : Fragment() {
                 )
             }
 
-/*            val bottomSheetBehavior: BottomSheetBehavior<FrameLayout> = BottomSheetBehavior.from(bottomSheetFrameLayout)
+            //вводим слово в inputLayout и посылаем запрос в википедию, нажав на иконку W
+            inputLayout.setEndIconOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data =
+                        Uri.parse("https://en.wikipedia.org/wiki/${inputEditText.text.toString()}")
+                })
+            }
+
+           //Здесь мы передаем наш bottomSheetFrameLayout
+            bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetFrameLayout)
+            // Сразу укажем его состояние (свёрнутое, но не скрытое):
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+
             bottomSheetFrameLayout.setOnClickListener {
                 bottomSheetBehavior.state = when (bottomSheetBehavior.state) {
                     BottomSheetBehavior.STATE_COLLAPSED -> BottomSheetBehavior.STATE_EXPANDED
                     BottomSheetBehavior.STATE_EXPANDED -> BottomSheetBehavior.STATE_COLLAPSED
                     else -> BottomSheetBehavior.STATE_EXPANDED
                 }
-
-                Log.d(TAG, "onViewCreated() called state = ${bottomSheetBehavior.state}")
-            } */
+            }
         }
     }
 
     companion object{
-        const val TAG = "@@PictureFragment"
+        const val TAG = "@@PictureOfTheDayFragment"
     }
 }
