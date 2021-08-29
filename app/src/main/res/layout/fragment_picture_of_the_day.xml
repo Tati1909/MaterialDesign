@@ -128,13 +128,4 @@
             android:layout_margin="@dimen/margin_small" />
     </FrameLayout>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:backgroundTint="?attr/themeColorPrimary"
-        app:fabAlignmentMode="center"
-        app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

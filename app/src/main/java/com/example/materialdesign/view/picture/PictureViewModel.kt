@@ -1,4 +1,4 @@
-package com.example.materialdesign
+package com.example.materialdesign.view.picture
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import retrofit2.Response
 
 class PictureViewModel : ViewModel() {
     private var _pictureOfTheDay = MutableLiveData<PictureDTO>()
-    val PictureDTO: LiveData<PictureDTO> = _pictureOfTheDay
+    val pictureDto: LiveData<PictureDTO> = _pictureOfTheDay
     private var pictureRequestedOffset = 1
     private val service by lazy { RemoteDataSource.getNasaApiService() }
 

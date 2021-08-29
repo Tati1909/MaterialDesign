@@ -11,4 +11,6 @@
     <string name="pink_theme">Pink</string>
     <string name="favourite">Избранное</string>
     <string name="settings">Настройки</string>
+    <string name="title_home">Home</string>
+    <string name="title_notifications">Settings</string>
 </resources>

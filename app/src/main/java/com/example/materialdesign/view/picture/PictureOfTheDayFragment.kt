@@ -1,26 +1,23 @@
-package com.example.materialdesign.view
+package com.example.materialdesign.view.picture
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.materialdesign.databinding.FragmentPictureOfTheDayBinding
-import com.example.materialdesign.PictureViewModel
-import com.example.materialdesign.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.chip.Chip
 
 class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding: FragmentPictureOfTheDayBinding get() = _binding!!
 
-    private val viewModel by lazy { ViewModelProvider(this).get(PictureViewModel::class.java) }
+    private val pictureViewModel by lazy { ViewModelProvider(this).get(PictureViewModel::class.java) }
+
     //Определим переменную типа BottomSheetBehaviour. В качестве generic передаём тип контейнера
     //нашего BottomSheet. Этот instance будет управлять нашей нижней панелью.
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
@@ -30,42 +27,19 @@ class PictureOfTheDayFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentPictureOfTheDayBinding.inflate(inflater)
+        _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+
         return binding.root
-    }
-
-    //методы для установки BottomAppBar
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.app_bar_fav -> Toast.makeText(context, "Favourite",
-                Toast.LENGTH_SHORT).show()
-            R.id.app_bar_settings -> Toast.makeText(context, "Settings",
-                Toast.LENGTH_SHORT).show()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-    private fun setBottomAppBar(view: View) {
-        val context = activity as MainActivity
-        context.setSupportActionBar(binding.bottomAppBar)
-        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //устанавливаем иконки для  BottomAppBar
-        setBottomAppBar(view)
-
-        viewModel.requestPicture()
+        pictureViewModel.requestPicture()
 
         binding.apply {
             //объяснение (описание галактики) будет загружаться в bottomSheet
-            viewModel.PictureDTO.observe(viewLifecycleOwner)
+            pictureViewModel.pictureDto.observe(viewLifecycleOwner)
             { picture ->
                 bottomSheetTextView.text = picture.explanation
 
@@ -79,7 +53,7 @@ class PictureOfTheDayFragment : Fragment() {
             }
 
             chipGroup.setOnCheckedChangeListener { _, _ ->
-                viewModel.requestPicture(
+                pictureViewModel.requestPicture(
                     when {
                         todayChip.isChecked -> 0
                         yesterdayChip.isChecked -> -1
@@ -97,7 +71,7 @@ class PictureOfTheDayFragment : Fragment() {
                 })
             }
 
-           //Здесь мы передаем наш bottomSheetFrameLayout
+            //Здесь мы передаем наш bottomSheetFrameLayout
             bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetFrameLayout)
             // Сразу укажем его состояние (свёрнутое, но не скрытое):
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -112,7 +86,7 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
-    companion object{
+    companion object {
         const val TAG = "@@PictureOfTheDayFragment"
     }
 }
