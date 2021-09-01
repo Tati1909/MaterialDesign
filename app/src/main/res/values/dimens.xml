@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_small_XX">20dp</dimen>
     <dimen name="margin_average">50dp</dimen>
     <dimen name="town_header_height">500dp</dimen>
 </resources>

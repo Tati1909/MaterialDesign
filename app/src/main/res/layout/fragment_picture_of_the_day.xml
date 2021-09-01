@@ -14,40 +14,13 @@
         android:paddingEnd="@dimen/margin_small">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/theme_chip_group"
-            style="@style/ChipStyle"
-            app:checkedChip="@id/indigo_theme_chip"
-            app:layout_constraintBottom_toTopOf="@+id/chip_group"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/indigo_theme_chip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/indigo_theme" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/pink_theme_chip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pink_theme" />
-
-        </com.google.android.material.chip.ChipGroup>
-
-
-        <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
             style="@style/ChipStyle"
             app:checkedChip="@id/today_chip"
             app:layout_constraintBottom_toTopOf="@+id/input_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/theme_chip_group"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.chip.Chip

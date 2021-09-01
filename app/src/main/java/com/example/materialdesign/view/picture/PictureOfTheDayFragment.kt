@@ -16,7 +16,7 @@ class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding: FragmentPictureOfTheDayBinding get() = _binding!!
 
-    private val pictureViewModel by lazy { ViewModelProvider(this).get(PictureViewModel::class.java) }
+    private lateinit var pictureViewModel: PictureViewModel
 
     //Определим переменную типа BottomSheetBehaviour. В качестве generic передаём тип контейнера
     //нашего BottomSheet. Этот instance будет управлять нашей нижней панелью.
@@ -27,6 +27,7 @@ class PictureOfTheDayFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        pictureViewModel = ViewModelProvider(this).get(PictureViewModel::class.java)
         _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
 
         return binding.root

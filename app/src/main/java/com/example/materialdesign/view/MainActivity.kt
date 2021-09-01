@@ -1,6 +1,5 @@
 package com.example.materialdesign.view
 
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,14 +8,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.materialdesign.R
 import com.example.materialdesign.databinding.MainActivityBinding
-import com.example.materialdesign.view.picture.PictureOfTheDayFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setTheme(ThemeHolder.theme)
 
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -31,5 +31,9 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    object ThemeHolder{
+        var theme = R.style.PurpleTheme
     }
 }

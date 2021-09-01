@@ -9,8 +9,13 @@
     <string name="wiki_helper_text">Максимально допустимое количество букв</string>
     <string name="indigo_theme">Indigo</string>
     <string name="pink_theme">Pink</string>
+    <string name="purple_theme">Purple</string>
     <string name="favourite">Избранное</string>
     <string name="settings">Настройки</string>
     <string name="title_home">Home</string>
     <string name="title_notifications">Settings</string>
+    <string name="selection_theme">Выберите тему приложения:</string>
+    <string name="indigo">Indigo</string>
+    <string name="pink">Pink</string>
+    <string name="purple">Purple</string>
 </resources>
