@@ -3,19 +3,19 @@ package com.example.materialdesign.view.picture
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.materialdesign.model.PictureDTO
-import com.example.materialdesign.repository.RemoteDataSource
+import com.example.materialdesign.model.PictureDto
+import com.example.materialdesign.repository.RemoteNasaDataSource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PictureViewModel : ViewModel() {
-    private var _pictureOfTheDay = MutableLiveData<PictureDTO>()
-    val pictureDto: LiveData<PictureDTO> = _pictureOfTheDay
+    private var _pictureOfTheDay = MutableLiveData<PictureDto>()
+    val pictureLiveDataDto: LiveData<PictureDto> = _pictureOfTheDay
     private var pictureRequestedOffset = 1
-    private val service by lazy { RemoteDataSource.getNasaApiService() }
+    private val service by lazy { RemoteNasaDataSource.getNasaApiService() }
 
-    private val cachePicture = mutableMapOf<Int, PictureDTO?>()
+    private val cachePicture = mutableMapOf<Int, PictureDto?>()
 
     fun requestPicture(offset: Int = 0) {
         if (cachePicture[offset] != null) {
@@ -24,11 +24,11 @@ class PictureViewModel : ViewModel() {
         }
         if (pictureRequestedOffset != offset) {
             pictureRequestedOffset = offset
-            service.getPictureOfTheDay(RemoteDataSource.getToday(offset))
-                .enqueue(object : Callback<PictureDTO> {
+            service.getPictureOfTheDay(RemoteNasaDataSource.getTodayDayString(offset))
+                .enqueue(object : Callback<PictureDto> {
                     override fun onResponse(
-                        call: Call<PictureDTO>,
-                        response: Response<PictureDTO>,
+                        call: Call<PictureDto>,
+                        response: Response<PictureDto>,
                     ) {
                         if (response.isSuccessful) {
                             cachePicture[offset] = response.body()!!
@@ -36,7 +36,7 @@ class PictureViewModel : ViewModel() {
                         }
                     }
 
-                    override fun onFailure(call: Call<PictureDTO>, t: Throwable) {
+                    override fun onFailure(call: Call<PictureDto>, t: Throwable) {
                         pictureRequestedOffset = 1
                     }
                 })

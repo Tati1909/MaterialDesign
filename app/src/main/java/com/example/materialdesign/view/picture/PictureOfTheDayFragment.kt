@@ -18,6 +18,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private lateinit var pictureViewModel: PictureViewModel
 
+
     //Определим переменную типа BottomSheetBehaviour. В качестве generic передаём тип контейнера
     //нашего BottomSheet. Этот instance будет управлять нашей нижней панелью.
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
@@ -40,7 +41,7 @@ class PictureOfTheDayFragment : Fragment() {
 
         binding.apply {
             //объяснение (описание галактики) будет загружаться в bottomSheet
-            pictureViewModel.pictureDto.observe(viewLifecycleOwner)
+            pictureViewModel.pictureLiveDataDto.observe(viewLifecycleOwner)
             { picture ->
                 bottomSheetTextView.text = picture.explanation
 
@@ -68,7 +69,7 @@ class PictureOfTheDayFragment : Fragment() {
             inputLayout.setEndIconOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
                     data =
-                        Uri.parse("https://en.wikipedia.org/wiki/${inputEditText.text.toString()}")
+                        Uri.parse(WIKIPEDIA+"${inputEditText.text.toString()}")
                 })
             }
 
@@ -89,5 +90,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     companion object {
         const val TAG = "@@PictureOfTheDayFragment"
+        const val WIKIPEDIA = "https://en.wikipedia.org/wiki/"
+
     }
 }

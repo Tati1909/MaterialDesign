@@ -2,7 +2,7 @@ package com.example.materialdesign.repository
 
 
 import com.example.materialdesign.BuildConfig
-import com.example.materialdesign.model.PictureDTO
+import com.example.materialdesign.model.PictureDto
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -19,6 +19,6 @@ interface PictureOfTheDayApi {
    */
     @GET("planetary/apod?api_key=${BuildConfig.NASA_API_KEY}")
     fun getPictureOfTheDay(
-        @Query("date") date: String = RemoteDataSource.getToday(),
-    ): Call<PictureDTO>
+        @Query("date") date: String = RemoteNasaDataSource.getTodayDayString(),
+    ): Call<PictureDto>
 }

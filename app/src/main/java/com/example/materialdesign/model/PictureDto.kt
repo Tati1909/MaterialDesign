@@ -3,7 +3,7 @@ package com.example.materialdesign.model
 import com.google.gson.annotations.SerializedName
 
 //Data transfer object - объект передачи данных
-data class PictureDTO(
+data class PictureDto(
     //авторское право
     @field:SerializedName("copyright")
     val copyright: String?,
