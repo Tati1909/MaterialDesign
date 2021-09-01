@@ -7,26 +7,27 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 // Результаты запроса станут обрабатываться во ViewModel — там будет находиться наш callback.
-object RemoteDataSource {
+object RemoteNasaDataSource {
     private const val TAG = "@@RemoteDataSource"
+    private const val BASEURL = "https://api.nasa.gov/"
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://api.nasa.gov/")
+            .baseUrl(BASEURL)
             .build()
     }
-    private val SERVICE: PictureOfTheDayApi by lazy {
+    private val service: PictureOfTheDayApi by lazy {
         retrofit.create(PictureOfTheDayApi::class.java)
     }
 
-    fun getNasaApiService() = SERVICE
+    fun getNasaApiService() = service
 
-    fun getToday(offset: Int = 0): String {
-        val date = Calendar.getInstance().apply { add(Calendar.DATE, offset) }.time
-        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date)
-        Log.d(TAG, "getToday() called: offset = $offset today = $today")
+    fun getTodayDayString(offset: Int = 0): String {
+        val currentData = Calendar.getInstance().apply { add(Calendar.DATE, offset) }.time
+        val currentDataString = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentData)
+        Log.d(TAG, "getToday() called: offset = $offset today = $currentDataString")
 
-        return today
+        return currentDataString
     }
 }

@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MaterialDesign" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.MaterialDesign" parent="Theme.MaterialComponents.Light">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_300</item>
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -13,4 +13,56 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="IndigoTheme" parent="Theme.MaterialDesign">
+        <item name="colorPrimary">@color/indigo_500</item>
+        <item name="colorPrimaryVariant">@color/indigo_700</item>
+        <item name="colorAccent">@color/indigo_200</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/gray_500</item>
+        <item name="textColorConnected">@color/green_400</item>
+        <item name="textColorDisConnected">@color/gray_200</item>
+        <item name="themeColorPrimary">@color/indigo_300</item>
+    </style>
+
+    <style name="PinkTheme" parent="Theme.MaterialDesign">
+        <item name="colorPrimary">@color/pink_500</item>
+        <item name="colorPrimaryVariant">@color/pink_700</item>
+        <item name="colorPrimaryDark">@color/pink_500</item>
+        <item name="colorAccent">@color/pink_200</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/gray_500</item>
+        <item name="textColorConnected">@color/green_400</item>
+        <item name="textColorDisConnected">@color/gray_200</item>
+        <item name="themeColorPrimary">@color/pink_300</item>
+    </style>
+
+    <style name="PurpleTheme" parent="Theme.MaterialDesign">
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_500</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="themeColorPrimary">@color/purple_200</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/purple_200</item>
+        <item name="colorSecondaryVariant">@color/purple_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+    </style>
+
+    <style name="ChipStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_small</item>
+        <item name="selectionRequired">true</item>
+        <item name="singleLine">true</item>
+        <item name="singleSelection">true</item>
+    </style>
+
+    <style name="BasicStyleSettings">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">300dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
+    </style>
+
 </resources>

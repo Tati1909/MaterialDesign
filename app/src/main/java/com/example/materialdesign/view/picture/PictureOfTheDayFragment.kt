@@ -1,27 +1,24 @@
-package com.example.materialdesign.view
+package com.example.materialdesign.view.picture
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.materialdesign.databinding.FragmentPictureOfTheDayBinding
-import com.example.materialdesign.PictureViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.chip.Chip
 
 class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding: FragmentPictureOfTheDayBinding get() = _binding!!
 
-    private val viewModel by lazy { ViewModelProvider(this).get(PictureViewModel::class.java) }
+    private lateinit var pictureViewModel: PictureViewModel
+
+
     //Определим переменную типа BottomSheetBehaviour. В качестве generic передаём тип контейнера
     //нашего BottomSheet. Этот instance будет управлять нашей нижней панелью.
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
@@ -31,20 +28,22 @@ class PictureOfTheDayFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentPictureOfTheDayBinding.inflate(inflater)
+        pictureViewModel = ViewModelProvider(this).get(PictureViewModel::class.java)
+        _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.requestPicture()
+        pictureViewModel.requestPicture()
 
         binding.apply {
             //объяснение (описание галактики) будет загружаться в bottomSheet
-            viewModel.PictureDTO.observe(viewLifecycleOwner)
+            pictureViewModel.pictureLiveDataDto.observe(viewLifecycleOwner)
             { picture ->
-                textViewBottomSheet.text = picture.explanation
+                bottomSheetTextView.text = picture.explanation
 
                 if (picture.isImage) {
                     Glide.with(root)
@@ -56,7 +55,7 @@ class PictureOfTheDayFragment : Fragment() {
             }
 
             chipGroup.setOnCheckedChangeListener { _, _ ->
-                viewModel.requestPicture(
+                pictureViewModel.requestPicture(
                     when {
                         todayChip.isChecked -> 0
                         yesterdayChip.isChecked -> -1
@@ -70,11 +69,11 @@ class PictureOfTheDayFragment : Fragment() {
             inputLayout.setEndIconOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
                     data =
-                        Uri.parse("https://en.wikipedia.org/wiki/${inputEditText.text.toString()}")
+                        Uri.parse(WIKIPEDIA+"${inputEditText.text.toString()}")
                 })
             }
 
-           //Здесь мы передаем наш bottomSheetFrameLayout
+            //Здесь мы передаем наш bottomSheetFrameLayout
             bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetFrameLayout)
             // Сразу укажем его состояние (свёрнутое, но не скрытое):
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -89,7 +88,9 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
-    companion object{
+    companion object {
         const val TAG = "@@PictureOfTheDayFragment"
+        const val WIKIPEDIA = "https://en.wikipedia.org/wiki/"
+
     }
 }

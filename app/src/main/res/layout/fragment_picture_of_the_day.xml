@@ -10,18 +10,17 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp">
+        android:paddingStart="@dimen/margin_small"
+        android:paddingEnd="@dimen/margin_small">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin"
+            style="@style/ChipStyle"
             app:checkedChip="@id/today_chip"
-            app:selectionRequired="true"
-            app:singleLine="true"
-            app:singleSelection="true"
+            app:layout_constraintBottom_toTopOf="@+id/input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.chip.Chip
@@ -92,22 +91,14 @@
         android:layout_height="wrap_content"
         android:background="@color/purple_200"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="50dp"
+        app:behavior_peekHeight="@dimen/margin_average"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <View
-            android:id="@+id/bottom_sheet_line"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="#663b4351"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
-            android:id="@+id/text_view_bottom_sheet"
+            android:id="@+id/bottom_sheet_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin" />
+            android:layout_margin="@dimen/margin_small" />
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.settings.SettingsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small_XX"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:text="@string/selection_theme"
+            android:textAlignment="center"
+            android:textSize="15sp" />
+
+        <RadioGroup
+            android:id="@+id/theme_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/indigo_theme_radio_button"
+                style="@style/BasicStyleSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/indigo_theme" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/pink_theme_radio_button"
+                style="@style/BasicStyleSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pink_theme" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/purple_theme_radio_button"
+                style="@style/BasicStyleSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/purple_theme" />
+
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/BasicStyleSettings"
+                android:src="@drawable/indigo"
+                android:text="@string/indigo" />
+
+            <ImageView
+                style="@style/BasicStyleSettings"
+                android:src="@drawable/pink"
+                android:text="@string/pink" />
+
+            <ImageView
+                style="@style/BasicStyleSettings"
+                android:src="@drawable/purple"
+                android:text="@string/purple" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
