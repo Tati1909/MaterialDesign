@@ -36,6 +36,20 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_CURRENT_THEME,ThemeHolder.theme)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        ThemeHolder.theme = savedInstanceState.getInt(KEY_CURRENT_THEME)
+    }
+    
+    companion object {
+        const val KEY_CURRENT_THEME = "current_theme"
+    }
+
     object ThemeHolder{
         var theme = R.style.PurpleTheme
     }
