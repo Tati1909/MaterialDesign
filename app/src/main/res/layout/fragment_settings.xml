@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/purple_fon"
+    android:orientation="horizontal"
     tools:context=".view.settings.SettingsFragment">
 
     <LinearLayout
@@ -61,20 +62,22 @@
 
             <ImageView
                 style="@style/BasicStyleSettings"
+                android:contentDescription="@string/indigo_theme"
                 android:src="@drawable/indigo"
                 android:text="@string/indigo" />
 
             <ImageView
                 style="@style/BasicStyleSettings"
+                android:contentDescription="@string/pink_theme"
                 android:src="@drawable/pink"
                 android:text="@string/pink" />
 
             <ImageView
                 style="@style/BasicStyleSettings"
+                android:contentDescription="@string/purple_theme"
                 android:src="@drawable/purple"
                 android:text="@string/purple" />
         </LinearLayout>
-
 
     </LinearLayout>
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_100">
+    android:background="@drawable/purple_fon"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -58,7 +59,7 @@
             app:endIconDrawable="@drawable/ic_wikipedia"
             app:endIconMode="custom"
             app:helperText="@string/wiki_helper_text"
-            app:layout_constraintBottom_toTopOf="@+id/input_edit_text"
+            app:layout_constraintBottom_toTopOf="@+id/image_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chip_group"
@@ -67,8 +68,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/image_view" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,9 +77,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/town_header_height"
             android:layout_gravity="center"
+            android:paddingTop="@dimen/margin_small_XX"
             android:contentDescription="@string/photo_of_the_day_stub"
             android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_frame_layout"
             app:layout_constraintTop_toBottomOf="@+id/input_layout"
             app:srcCompat="@drawable/ic_no_photo_vector"
             tools:ignore="MissingConstraints,NotSibling" />
