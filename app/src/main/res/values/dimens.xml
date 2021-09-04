@@ -4,4 +4,5 @@
     <dimen name="margin_small_XX">20dp</dimen>
     <dimen name="margin_average">50dp</dimen>
     <dimen name="town_header_height">500dp</dimen>
+    <dimen name="text_size_planets">15sp</dimen>
 </resources>

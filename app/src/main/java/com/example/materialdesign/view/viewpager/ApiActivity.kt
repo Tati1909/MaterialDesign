@@ -1,10 +1,7 @@
 package com.example.materialdesign.view.viewpager
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -18,17 +15,23 @@ private const val WEATHER = 2
 
 class ApiActivity : AppCompatActivity() {
 
-    private var _binding: ActivityApiBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityApiBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_api)
+        //setContentView(R.layout.activity_api)
+
+        binding = ActivityApiBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //устанавливаем адаптер
         binding.viewPager.adapter = ViewPagerAdapter(supportFragmentManager)
-         //viewPager и tablayout синхронизируются(двигается и верх, и низ)
+        //viewPager и tablayout синхронизируются(двигается и верх, и низ)
         binding.tabLayout.setupWithViewPager(binding.viewPager)
+
+        //Трансформатор уменьшенной страницы
+        //Этот преобразователь страниц сжимает и тускнеет при прокрутке между соседними страницами.
+        binding.viewPager.setPageTransformer(true, ZoomOutPageTransformer())
 
         setHighlightedTab(EARTH)
 
@@ -37,6 +40,7 @@ class ApiActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 setHighlightedTab(position)
             }
+
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(
                 position: Int,
@@ -45,10 +49,6 @@ class ApiActivity : AppCompatActivity() {
             ) {
             }
         })
-    }
-
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        return super.onCreateView(name, context, attrs)
     }
 
     //внутри таба с планетой и названием будем отображать нашу кастомную вьюшку
@@ -84,12 +84,9 @@ class ApiActivity : AppCompatActivity() {
             )
         binding.tabLayout.getTabAt(EARTH)?.customView = earth
         binding.tabLayout.getTabAt(MARS)?.customView =
-            layoutInflater.inflate(R.layout.activity_api_custom_tab_mars, null)
+            layoutInflater.inflate(R.layout.activity_api_custom_tab_mars,null)
         binding.tabLayout.getTabAt(WEATHER)?.customView =
-            layoutInflater.inflate(
-                R.layout.activity_api_custom_tab_weather,
-                null
-            )
+            layoutInflater.inflate(R.layout.activity_api_custom_tab_weather,null)
     }
 
     private fun setMarsTabHighlighted(layoutInflater: LayoutInflater) {
@@ -106,10 +103,7 @@ class ApiActivity : AppCompatActivity() {
             layoutInflater.inflate(R.layout.activity_api_custom_tab_earth, null)
         binding.tabLayout.getTabAt(MARS)?.customView = mars
         binding.tabLayout.getTabAt(WEATHER)?.customView =
-            layoutInflater.inflate(
-                R.layout.activity_api_custom_tab_weather,
-                null
-            )
+            layoutInflater.inflate(R.layout.activity_api_custom_tab_weather, null)
     }
 
     private fun setWeatherTabHighlighted(layoutInflater: LayoutInflater) {
@@ -130,7 +124,5 @@ class ApiActivity : AppCompatActivity() {
         binding.tabLayout.getTabAt(MARS)?.customView =
             layoutInflater.inflate(R.layout.activity_api_custom_tab_mars, null)
         binding.tabLayout.getTabAt(WEATHER)?.customView = weather
-
-
     }
 }

@@ -12,9 +12,9 @@
         android:drawableStart="@drawable/ic_sun"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:text="Earth"
+        android:text="@string/weather"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,15 +50,15 @@ class MainActivity : AppCompatActivity() {
     //Action Bar с планетами
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle presses on the action bar items
-        when (item.getItemId()) {
+        return when (item.itemId) {
             R.id.planets -> {
                 val planets = Intent(this, ApiActivity::class.java)
                 startActivity(planets)
 
-                return true
+                true
             }
             else ->
-                return super.onOptionsItemSelected(item)
+                super.onOptionsItemSelected(item)
         }
     }
 
