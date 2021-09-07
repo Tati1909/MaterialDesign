@@ -6,7 +6,7 @@
     <string name="before_yesterday">Позавчера</string>
     <string name="photo_of_the_day_stub">Фото сегодняшнего дня</string>
     <string name="search_wiki">Найти в википедии</string>
-    <string name="wiki_helper_text">Максимально допустимое количество букв</string>
+    <string name="wiki_helper_text">Поищите термин в википедии</string>
     <string name="indigo_theme">Indigo</string>
     <string name="pink_theme">Pink</string>
     <string name="purple_theme">Purple</string>

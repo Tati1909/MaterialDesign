@@ -9,12 +9,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.materialdesign.databinding.FragmentPictureOfTheDayBinding
+import com.example.materialdesign.databinding.FragmentPictureOfTheDayStartBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class PictureOfTheDayFragment : Fragment() {
-    private var _binding: FragmentPictureOfTheDayBinding? = null
-    private val binding: FragmentPictureOfTheDayBinding get() = _binding!!
+
+    //заменили фрагмент fragment_picture_of_the_day.xml на fragment_picture_of_the_day_start.xml
+    private var _binding: FragmentPictureOfTheDayStartBinding? = null
+    private val binding: FragmentPictureOfTheDayStartBinding get() = _binding!!
 
     private lateinit var pictureViewModel: PictureViewModel
 
@@ -29,7 +31,7 @@ class PictureOfTheDayFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         pictureViewModel = ViewModelProvider(this).get(PictureViewModel::class.java)
-        _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+        _binding = FragmentPictureOfTheDayStartBinding.inflate(inflater, container, false)
 
         return binding.root
     }
