@@ -109,8 +109,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple_200"
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="@dimen/margin_average"
+        android:visibility="visible"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="@dimen/margin_bottom_sheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView

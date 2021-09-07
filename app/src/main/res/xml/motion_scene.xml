@@ -3,6 +3,7 @@
     <Transition
         motion:constraintSetEnd="@layout/fragment_picture_of_the_day_end"
         motion:constraintSetStart="@layout/fragment_picture_of_the_day_start"
+        motion:motionInterpolator="easeIn"
         motion:duration="1000">
         <OnClick motion:targetId="@id/wiki_button" />
     </Transition>
