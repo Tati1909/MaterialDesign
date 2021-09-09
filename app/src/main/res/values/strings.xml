@@ -22,4 +22,12 @@
     <string name="planets">Планеты</string>
     <string name="mars">Mars</string>
     <string name="weather">Weather</string>
+    <string name="transition">Transition</string>
+    <string name="transform">Transform</string>
+    <string name="trajectory">Trajectory</string>
+    <string name="animations">Animations</string>
+    <string name="slide">Slide</string>
+    <string name="explode">Explode</string>
+    <string name="pathmotion">PathMotion</string>
+    <string name="transitions">Transitions</string>
 </resources>

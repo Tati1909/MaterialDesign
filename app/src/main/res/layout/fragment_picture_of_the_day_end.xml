@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/purple_fon"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -12,7 +11,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.motion.widget.MotionLayout
-            android:id="@+id/main"
+            android:id="@+id/motion_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/margin_small"

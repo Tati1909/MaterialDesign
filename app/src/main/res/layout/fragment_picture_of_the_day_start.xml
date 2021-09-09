@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/purple_fon"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -12,7 +11,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.motion.widget.MotionLayout
-            android:id="@+id/main"
+            android:id="@+id/motion_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/margin_small"
@@ -62,8 +61,7 @@
                 app:checkedChip="@id/today_chip"
                 app:layout_constraintBottom_toTopOf="@+id/image_view"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/before_yesterday_chip"
@@ -96,9 +94,10 @@
                 android:contentDescription="@string/photo_of_the_day_stub"
                 android:paddingTop="@dimen/margin_small_XX"
                 android:scaleType="fitXY"
-                app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_frame_layout"
+                app:layout_constraintBottom_toTopOf="@+id/trajectory_button"
+                app:layout_constraintHeight_percent="0.4"
                 app:layout_constraintTop_toBottomOf="@+id/chip_group"
-                app:srcCompat="@drawable/ic_no_photo_vector"
+                app:srcCompat="@drawable/nasa_earth_america_imageview"
                 tools:ignore="MissingConstraints,NotSibling,ImageContrastCheck"
                 tools:layout_editor_absoluteX="10dp" />
         </androidx.constraintlayout.motion.widget.MotionLayout>
@@ -108,8 +107,8 @@
         android:id="@+id/bottom_sheet_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_200"
         android:visibility="visible"
+        android:background="@color/gray_200"
         app:behavior_hideable="false"
         app:behavior_peekHeight="@dimen/margin_bottom_sheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
