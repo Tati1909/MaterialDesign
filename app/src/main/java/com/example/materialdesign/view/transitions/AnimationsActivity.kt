@@ -12,7 +12,6 @@ class AnimationsActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_api)
 
         binding = ActivityAnimationsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -32,6 +31,10 @@ class AnimationsActivity: AppCompatActivity() {
         binding.pathmotion.setOnClickListener {
             val pathmotion = Intent(this, PathMotionActivity::class.java)
             startActivity(pathmotion)
+        }
+        binding.animationsFabButton.setOnClickListener {
+            val animationsFab = Intent(this, AnimationsFabActivity::class.java)
+            startActivity(animationsFab)
         }
     }
 

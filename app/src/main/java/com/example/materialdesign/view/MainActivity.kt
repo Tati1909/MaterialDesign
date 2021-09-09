@@ -79,6 +79,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     object ThemeHolder{
-        var theme = R.style.PurpleTheme
+        var theme = R.style.IndigoTheme
     }
 }
