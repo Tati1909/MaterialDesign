@@ -29,12 +29,16 @@ class AnimationsActivity: AppCompatActivity() {
             startActivity(transform)
         }
         binding.pathmotion.setOnClickListener {
-            val pathmotion = Intent(this, PathMotionActivity::class.java)
-            startActivity(pathmotion)
+            val pathMotion = Intent(this, PathMotionActivity::class.java)
+            startActivity(pathMotion)
         }
         binding.animationsFabButton.setOnClickListener {
             val animationsFab = Intent(this, AnimationsFabActivity::class.java)
             startActivity(animationsFab)
+        }
+        binding.animationsBonusButton.setOnClickListener {
+            val animationsBonus = Intent(this, AnimationsActivityBonus::class.java)
+            startActivity(animationsBonus)
         }
     }
 
