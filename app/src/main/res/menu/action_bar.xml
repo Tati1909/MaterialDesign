@@ -7,4 +7,12 @@
         app:showAsAction="ifRoom"
         android:title="@string/planets">
     </item>
+    <item
+        android:id="@+id/animations"
+        android:icon="@drawable/ic_transform"
+        app:showAsAction="ifRoom"
+        android:title="@string/animations">
+    </item>
+
+
 </menu>

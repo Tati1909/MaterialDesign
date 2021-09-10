@@ -6,4 +6,5 @@
     <dimen name="margin_bottom_sheet">200dp</dimen>
     <dimen name="town_header_height">500dp</dimen>
     <dimen name="text_size_planets">15sp</dimen>
+    <dimen name="text_size_animations_button">15sp</dimen>
 </resources>

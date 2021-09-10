@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/PurpleTheme">
+        android:theme="@style/IndigoTheme">
         <activity
             android:name=".view.MainActivity"
             android:exported="true">
@@ -19,7 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.viewpager.ApiActivity"></activity>
+        <activity android:name=".view.viewpager.ApiActivity" />
+        <activity android:name=".view.transitions.AnimationsActivity" />
+        <activity android:name=".view.transitions.TransitionActivity" />
+        <activity android:name=".view.transitions.ExplodeActivity" />
+        <activity android:name=".view.transitions.TransformActivity" />
+        <activity android:name=".view.transitions.PathMotionActivity" />
+        <activity android:name=".view.transitions.AnimationsFabActivity" />
+        <activity android:name=".view.transitions.AnimationsActivityBonus" />
+
+
+
+
     </application>
 
 </manifest>
