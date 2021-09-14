@@ -9,16 +9,19 @@ import androidx.recyclerview.widget.RecyclerView
 //Чтобы использовать ItemTouchHelper, нужно написать класс-наследник от ItemTouchHelper.Callback.
 class ItemTouchHelperCallback(private val adapter: RecyclerActivityAdapter) :
     ItemTouchHelper.Callback() {
+    //долго зажимаем и перетаскиваем
+    //в нашем случае я выключила, будем перетаскивать только за значок бургера
     override fun isLongPressDragEnabled(): Boolean {
-        return true
+        return false
     }
 
+    //когда мы смахиваем(true _ значит разрешено)
     override fun isItemViewSwipeEnabled(): Boolean {
         return true
     }
 
     //этот callback позволяет определить
-    //направления перетаскивания и свайпа. Для перетаскивания мы используем направления
+    //направления перетаскивания и свайпа(вертикальный и горизонтальный списки). Для перетаскивания мы используем направления
     //вверх/вниз, а для смахивания — влево/вправо. Если у нас горизонтальный scroll, то
     //направления будут другими. Или мы можем определить смахивание только вправо.
     override fun getMovementFlags(
@@ -27,10 +30,7 @@ class ItemTouchHelperCallback(private val adapter: RecyclerActivityAdapter) :
     ): Int {
         val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
         val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
-        return makeMovementFlags(
-            dragFlags,
-            swipeFlags
-        )
+        return makeMovementFlags(dragFlags, swipeFlags)
     }
 
     //onMove(RecyclerView, ViewHolder, ViewHolder) и onSwiped(ViewHolder, int)
@@ -50,12 +50,13 @@ class ItemTouchHelperCallback(private val adapter: RecyclerActivityAdapter) :
     }
 
     //onSelectedChange и clearView нужны, чтобы наш ViewHolder корректно обрабатывал
-    //выделение элемента.
+    //выделение элемента(когда мы выбрали какой-то элемент).
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
             val itemViewHolder = viewHolder as ItemTouchHelperViewHolder
             itemViewHolder.onItemSelected()
         }
+        //элемент подкрашивается серым
         super.onSelectedChanged(viewHolder, actionState)
     }
 

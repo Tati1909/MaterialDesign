@@ -1,5 +1,6 @@
 package com.example.materialdesign.view.recycler
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -7,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materialdesign.R
@@ -54,13 +54,23 @@ class RecyclerActivityAdapter(
     override fun onBindViewHolder(
         holder: BaseViewHolder,
         position: Int,
+        //paylods - это та часть данных холдера, которая изменилась(например сообщение:
+        //автор,дата одинаковые, а сама часть сообщения изменилась)б\, т е содержит какие-то точечные изменения
         payloads: MutableList<Any>
     ) {
         if (payloads.isEmpty())
             super.onBindViewHolder(holder, position, payloads)
         else {
-            if (payloads.any { it is Pair<*, *> })
-                holder.itemView.findViewById<TextView>(R.id.marsTextView).text = dataRecycler[position].first.someText
+            val combinedChange =
+                createCombinedPayload(payloads as List<Change<Pair<DataRecycler, Boolean>>>)
+            val oldData = combinedChange.oldData
+            val newData = combinedChange.newData
+            //если основной текст нового списка не совпадает с основным текстом старого,
+            //то устанавливаем новый текст
+            if (newData.first.someText != oldData.first.someText) {
+                holder.itemView.findViewById<TextView>(R.id.marsTextView).text =
+                    newData.first.someText
+            }
         }
     }
 
@@ -95,11 +105,14 @@ class RecyclerActivityAdapter(
         notifyItemRemoved(position)
     }
 
+    //метод для внесения изменений в наш RecyclerView. Этот метод будет
+    //использовать DiffUtil для вычисления разницы (calculateDiff) между старой коллекцией данных и новой(newItems),
+    //а также для  применения этих изменений в адаптере (dispatchUpdatesTo(adapter)).
     fun setItems(newItems: List<Pair<DataRecycler, Boolean>>) {
         val result = DiffUtil.calculateDiff(DiffUtilCallback(dataRecycler, newItems))
-        result.dispatchUpdatesTo(this)
         dataRecycler.clear()
         dataRecycler.addAll(newItems)
+        result.dispatchUpdatesTo(this)
     }
 
     //метод для добавления элементов в конец списка
@@ -109,24 +122,40 @@ class RecyclerActivityAdapter(
     }
 
     //метод генерации нового элемента
-    private fun generateItem() = Pair(DataRecycler(1,"Mars", ""), false)
+    private fun generateItem() = Pair(DataRecycler(1, "Mars", ""), false)
 
+    //DiffUtilCallback помогает нам понять изменились наши данные в списке или нет
+
+    //Этот класс призван вычислять разницу между двумя массивами (списками) и возвращать набор операций,
+    // которые нужно произвести, чтобы превратить старый список в новый.
+    // То есть дать нам возможность точечно обработать изменения с анимациями и
+    //остальной красотой, которой невозможно добиться методом notifyDataSetChanged.
     inner class DiffUtilCallback(
         private var oldItems: List<Pair<DataRecycler, Boolean>>,
         private var newItems: List<Pair<DataRecycler, Boolean>>
     ) : DiffUtil.Callback() {
 
+        //возвращает размер старого списка
         override fun getOldListSize(): Int = oldItems.size
 
+        //возвращает размер нового списка
         override fun getNewListSize(): Int = newItems.size
 
+        //должен возвращать true, если элементы списка одинаковые(проверяем по id)
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int):
                 Boolean =
             oldItems[oldItemPosition].first.id == newItems[newItemPosition].first.id
+
+        //вызывается, только если areItemsTheSame вернул true. Это дополнительная
+        //проверка, которая сравнивает переменные класса (элемента списка) между собой по
+        //аналогии с equals, чтобы выяснить, изменились ли данные внутри (проверяет само наполнение холдера)
+        //В нашем случае мы проверяем по названию someText(Mars, Earth, Upiter)
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int):
-                Boolean =
-            oldItems[oldItemPosition].first.someText ==
-                    newItems[newItemPosition].first.someText
+                Boolean = oldItems[oldItemPosition].first.someText ==
+                newItems[newItemPosition].first.someText
+
+        //вызывается, только если areContentsTheSame возвращает false. То есть старый и новый
+        //элементы списка имеют одинаковый id, но содержат разные данные
         override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int):
                 Any? {
             val oldItem = oldItems[oldItemPosition]
@@ -141,7 +170,8 @@ class RecyclerActivityAdapter(
     inner class EarthViewHolder(view: View) : BaseViewHolder(view) {
         override fun bind(dataItem: Pair<DataRecycler, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.findViewById<TextView>(R.id.descriptionTextView).text = dataItem.first.someDescription
+                itemView.findViewById<TextView>(R.id.descriptionTextView).text =
+                    dataItem.first.someDescription
                 itemView.findViewById<ImageView>(R.id.wikiImageView).setOnClickListener {
                     onListItemClickListener.onItemClick(dataItem.first)
                 }
@@ -151,26 +181,30 @@ class RecyclerActivityAdapter(
 
     inner class MarsViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
 
+        @SuppressLint("ClickableViewAccessibility")
         override fun bind(dataItem: Pair<DataRecycler, Boolean>) {
 
             itemView.findViewById<ImageView>(R.id.marsImageView).setOnClickListener {
                 onListItemClickListener.onItemClick(dataItem.first)
             }
             itemView.findViewById<ImageView>(R.id.addItemImageView).setOnClickListener { addItem() }
-            itemView.findViewById<ImageView>(R.id.removeItemImageView).setOnClickListener { removeItem() }
+            itemView.findViewById<ImageView>(R.id.removeItemImageView)
+                .setOnClickListener { removeItem() }
             itemView.findViewById<ImageView>(R.id.moveItemDown).setOnClickListener { moveDown() }
             itemView.findViewById<ImageView>(R.id.moveItemUp).setOnClickListener { moveUp() }
             itemView.findViewById<TextView>(R.id.marsDescriptionTextView).visibility =
                 if (dataItem.second) View.VISIBLE else View.GONE
-                    //По нажатию на основной текст (MARS) мы изменяем данные в элементе массива и обновляем конкретный
+            //По нажатию на основной текст (MARS) мы изменяем данные в элементе массива и обновляем конкретный
             //элемент через метод toggleText, который пересоздаёт этот элемент, вызывая метод bind.
             itemView.findViewById<TextView>(R.id.marsTextView).setOnClickListener { toggleText() }
-            itemView.findViewById<ImageView>(R.id.dragHandleImageView).setOnTouchListener { _, event ->
-                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                    dragListener.onStartDrag(this)
+            //наш бургер, за который мы перетаскиваем элемент
+            itemView.findViewById<ImageView>(R.id.dragHandleImageView)
+                .setOnTouchListener { _, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        dragListener.onStartDrag(this)
+                    }
+                    false
                 }
-                false
-            }
         }
 
         //добавить элемент
@@ -196,6 +230,7 @@ class RecyclerActivityAdapter(
             //Обратите внимание на предикат it > 1. Мы специально оставляем первый элемент
             //списка нетронутым, потому что это header и он всегда должен оставаться наверху.
             layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
+                //удаляем элемент на текущей и позиции и добавляем его на позицию выше
                 dataRecycler.removeAt(currentPosition).apply {
                     dataRecycler.add(currentPosition - 1, this)
                 }
@@ -239,9 +274,9 @@ class RecyclerActivityAdapter(
 
         override fun bind(dataItem: Pair<DataRecycler, Boolean>) {
             itemView.setOnClickListener {
-                 onListItemClickListener.onItemClick(dataItem.first)
+                onListItemClickListener.onItemClick(dataItem.first)
                 //data[1] = Pair(Data("Jupiter", ""), false)
-               // notifyItemChanged(1, Pair(Data("", ""), false))
+                // notifyItemChanged(1, Pair(Data("", ""), false))
             }
         }
     }
@@ -253,8 +288,7 @@ class RecyclerActivityAdapter(
     }
 
 
-
-//константы для разных типов элементов в списке
+    //константы для разных типов элементов в списке
     companion object {
         private const val TYPE_EARTH = 0
         private const val TYPE_MARS = 1
@@ -264,6 +298,7 @@ class RecyclerActivityAdapter(
 
 data class DataRecycler(
     val id: Int = 0,
+    //основной текст холдера(Марс, Юпитер, Земля)
     val someText: String = "Text",
     val someDescription: String? = "Description"
 )

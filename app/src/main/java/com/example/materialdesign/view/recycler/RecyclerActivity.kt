@@ -10,6 +10,8 @@ import com.example.materialdesign.databinding.ActivityRecyclerBinding
 class RecyclerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecyclerBinding
+
+    //isNewList будет регулировать наполнение списка
     private var isNewList = false
     //перетаскивание за рукоятку
     lateinit var itemTouchHelper: ItemTouchHelper
@@ -52,11 +54,15 @@ class RecyclerActivity : AppCompatActivity() {
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
-        binding.recyclerActivityDiffUtilFAB.setOnClickListener{changeAdapterData()}
+        //по нажатию на кнопку будем менять данные в списке
+        binding.recyclerActivityDiffUtilFAB.setOnClickListener { changeAdapterData() }
     }
 
+    //Методы changeAdapterData и createItemList обновляют список с каждым нажатием, имитируя
+    //новые данные с сервера или применение фильтров, поиска или какой-либо сортировки контента
+    //пользователем:
     private fun changeAdapterData() {
-        adapter.setItems(createItemList(isNewList).map { it })
+        adapter.setItems(createItemList(isNewList))
         isNewList = !isNewList
     }
 
@@ -74,10 +80,10 @@ class RecyclerActivity : AppCompatActivity() {
             true -> listOf(
                 Pair(DataRecycler(0, "Header"), false),
                 Pair(DataRecycler(1, "Mars", ""), false),
-                Pair(DataRecycler(2, "Jupiter", ""), false),
+                Pair(DataRecycler(2, "Earth", "Earth"), false),
                 Pair(DataRecycler(3, "Mars", ""), false),
                 Pair(DataRecycler(4, "Neptune", ""), false),
-                Pair(DataRecycler(5, "Saturn", ""), false),
+                Pair(DataRecycler(5, "Earth", "Earth"), false),
                 Pair(DataRecycler(6, "Mars", ""), false)
             )
         }
