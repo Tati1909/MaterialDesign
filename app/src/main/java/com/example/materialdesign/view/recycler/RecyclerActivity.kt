@@ -23,23 +23,23 @@ class RecyclerActivity : AppCompatActivity() {
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-       // _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-
-
         //создали список из 2 элементов(заголовка и элемента Марс
-        val data = arrayListOf(
-            Pair(DataRecycler(1,"Mars", ""), false))
+        val dataRecycler = arrayListOf(
+            Pair(DataRecycler(1, "Note", "Покормить кота!!!"), false)
+        )
 
-        data.add(0, Pair(DataRecycler(0,"Header"), false))
+        dataRecycler.add(0, Pair(DataRecycler(0, "Header"), false))
 
         adapter = RecyclerActivityAdapter(
             object : RecyclerActivityAdapter.OnListItemClickListener {
                 override fun onItemClick(dataItemClick: DataRecycler) {
-                    Toast.makeText(this@RecyclerActivity, dataItemClick.someText,
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@RecyclerActivity, dataItemClick.someText,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             },
-            data,
+            dataRecycler,
             object : OnStartDragListener {
                 override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
                     itemTouchHelper.startDrag(viewHolder)
@@ -48,7 +48,8 @@ class RecyclerActivity : AppCompatActivity() {
         )
 
         binding.recyclerView.adapter = adapter
-        binding.recyclerActivityFAB.setOnClickListener { adapter.appendItem() }
+        //
+        binding.recyclerActivityAddNoteFAB.setOnClickListener { adapter.appendItem() }
 
         //применятся для смахивания и перетаскивания элементов списка
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
@@ -70,21 +71,15 @@ class RecyclerActivity : AppCompatActivity() {
         return when (instanceNumber) {
             false -> listOf(
                 Pair(DataRecycler(0, "Header"), false),
-                Pair(DataRecycler(1, "Mars", ""), false),
-                Pair(DataRecycler(2, "Mars", ""), false),
-                Pair(DataRecycler(3, "Mars", ""), false),
-                Pair(DataRecycler(4, "Mars", ""), false),
-                Pair(DataRecycler(5, "Mars", ""), false),
-                Pair(DataRecycler(6, "Mars", ""), false)
+                Pair(DataRecycler(1, "Note", ""), false),
+                Pair(DataRecycler(2, "Note", ""), false),
+                Pair(DataRecycler(3, "Note", ""), false)
             )
             true -> listOf(
                 Pair(DataRecycler(0, "Header"), false),
-                Pair(DataRecycler(1, "Mars", ""), false),
-                Pair(DataRecycler(2, "Earth", "Earth"), false),
-                Pair(DataRecycler(3, "Mars", ""), false),
-                Pair(DataRecycler(4, "Neptune", ""), false),
-                Pair(DataRecycler(5, "Earth", "Earth"), false),
-                Pair(DataRecycler(6, "Mars", ""), false)
+                Pair(DataRecycler(1, "Note", "Покормить кота"), false),
+                Pair(DataRecycler(2, "Note", "Приготовить макарики"), false),
+                Pair(DataRecycler(3, "Note", "Сходить в магазин"), false)
             )
         }
     }
