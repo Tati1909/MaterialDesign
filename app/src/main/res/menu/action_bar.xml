@@ -13,6 +13,12 @@
         app:showAsAction="ifRoom"
         android:title="@string/animations">
     </item>
+    <item
+        android:id="@+id/recycler"
+        android:icon="@drawable/ic_recycler"
+        app:showAsAction="ifRoom"
+        android:title="@string/recycler" >
+    </item>
 
 
 </menu>

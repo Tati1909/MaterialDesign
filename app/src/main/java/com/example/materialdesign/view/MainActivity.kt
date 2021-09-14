@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.materialdesign.R
 import com.example.materialdesign.databinding.MainActivityBinding
+import com.example.materialdesign.view.recycler.RecyclerActivity
 import com.example.materialdesign.view.transitions.AnimationsActivity
 import com.example.materialdesign.view.viewpager.ApiActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -57,6 +58,11 @@ class MainActivity : AppCompatActivity() {
             R.id.animations -> {
                 val animations = Intent(this, AnimationsActivity::class.java)
                 startActivity(animations)
+                true
+            }
+            R.id.recycler -> {
+                val recycler = Intent(this, RecyclerActivity::class.java)
+                startActivity(recycler)
                 true
             }
             else ->

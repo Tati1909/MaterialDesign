@@ -27,6 +27,8 @@
         <activity android:name=".view.transitions.PathMotionActivity" />
         <activity android:name=".view.transitions.AnimationsFabActivity" />
         <activity android:name=".view.transitions.AnimationsActivityBonus" />
+        <activity android:name=".view.recycler.RecyclerActivity" />
+
 
 
 
