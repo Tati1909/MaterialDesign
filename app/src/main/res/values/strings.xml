@@ -33,6 +33,8 @@
     <string name="animations_fab">Animations FAB</string>
     <string name="animations_bonus">Animations Bonus</string>
     <string name="recycler">RecyclerView</string>
+    <string name="mars_description">Марс -- четвёртая по удалённости от Солнца и седьмая по размерам планета Солнечной системы. Названа в честь Марса -- древнеримского бога войны, соответствующего древнегреческому Аресу. Иногда Марс называют «красной планетой» из-за красноватого оттенка поверхности, придаваемого ей минералом маггемитом (оксидом железа).</string>
+    <string name="lorem_ipsum">\Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="notes">Заметки</string>
     <string name="note_description">Покормить кота!!</string>
     <string name="write_a_description">Введите текст</string>
