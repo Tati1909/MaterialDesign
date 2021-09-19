@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/recyclerActivityFAB"
+        android:id="@+id/recyclerActivityAddNoteFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -31,5 +31,5 @@
         android:layout_margin="15dp"
         android:src="@drawable/ic_back_fab"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recyclerActivityFAB" />
+        app:layout_constraintEnd_toStartOf="@+id/recyclerActivityAddNoteFAB" />
 </androidx.constraintlayout.widget.ConstraintLayout>

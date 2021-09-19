@@ -23,7 +23,7 @@
     <color name="pink_500">#e91e63</color>
     <color name="pink_700">#c2185b</color>
     <color name="colorAccent">#3F51B5</color>
-    <color name="colorAccent40Alfa">#6651B5</color>
-    <color name="colorPrimaryDark">#ba68c8</color>
+    <color name="color_accent_40_alfa">#6651B5</color>
+    <color name="color_primary_dark">#ba68c8</color>
     <color name="color_view_line">#000</color>
 </resources>

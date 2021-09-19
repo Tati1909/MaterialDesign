@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -22,19 +23,14 @@ class RecyclerActivityAdapter(
 ) : RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
 
     //viewType получаем из метода getItemViewType
-    //у нас 3 ViewHolder, но все они наследуются от BaseViewHolder
+    //у нас 2 ViewHolder, но все они наследуются от BaseViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
-            TYPE_EARTH -> EarthViewHolder(
+            TYPE_NOTE -> NoteViewHolder(
                 inflater.inflate(
-                    R.layout.activity_recycler_item_earth, parent, false
-                ) as View
-            )
-            TYPE_MARS -> MarsViewHolder(
-                inflater.inflate(
-                    R.layout.activity_recycler_item_mars, parent, false
+                    R.layout.activity_recycler_item_note, parent, false
                 ) as View
             )
             else -> HeaderViewHolder(
@@ -55,7 +51,7 @@ class RecyclerActivityAdapter(
         holder: BaseViewHolder,
         position: Int,
         //paylods - это та часть данных холдера, которая изменилась(например сообщение:
-        //автор,дата одинаковые, а сама часть сообщения изменилась)б\, т е содержит какие-то точечные изменения
+        //автор,дата одинаковые, а сама часть сообщения изменилась), т е содержит какие-то точечные изменения
         payloads: MutableList<Any>
     ) {
         if (payloads.isEmpty())
@@ -68,7 +64,7 @@ class RecyclerActivityAdapter(
             //если основной текст нового списка не совпадает с основным текстом старого,
             //то устанавливаем новый текст
             if (newData.first.someText != oldData.first.someText) {
-                holder.itemView.findViewById<TextView>(R.id.marsTextView).text =
+                holder.itemView.findViewById<TextView>(R.id.noteSomeTextView).text =
                     newData.first.someText
             }
         }
@@ -86,10 +82,10 @@ class RecyclerActivityAdapter(
             //1 элемент - это наш заголовок
             position == 0 -> TYPE_HEADER
 
-            //если описания нет или оно пустое, значит, элемент относится к типу «Марс»
-            dataRecycler[position].first.someDescription.isNullOrBlank() -> TYPE_MARS
+            //если описания нет или оно пустое, значит, элемент относится к типу «Note»
+            dataRecycler[position].first.someDescription.isNullOrBlank() -> TYPE_NOTE
 
-            else -> TYPE_EARTH
+            else -> TYPE_NOTE
         }
     }
 
@@ -122,7 +118,7 @@ class RecyclerActivityAdapter(
     }
 
     //метод генерации нового элемента
-    private fun generateItem() = Pair(DataRecycler(1, "Mars", ""), false)
+    private fun generateItem() = Pair(DataRecycler(1, "Note", ""), false)
 
     //DiffUtilCallback помогает нам понять изменились наши данные в списке или нет
 
@@ -167,24 +163,12 @@ class RecyclerActivityAdapter(
         }
     }
 
-    inner class EarthViewHolder(view: View) : BaseViewHolder(view) {
-        override fun bind(dataItem: Pair<DataRecycler, Boolean>) {
-            if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.findViewById<TextView>(R.id.descriptionTextView).text =
-                    dataItem.first.someDescription
-                itemView.findViewById<ImageView>(R.id.wikiImageView).setOnClickListener {
-                    onListItemClickListener.onItemClick(dataItem.first)
-                }
-            }
-        }
-    }
-
-    inner class MarsViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
+    inner class NoteViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
 
         @SuppressLint("ClickableViewAccessibility")
         override fun bind(dataItem: Pair<DataRecycler, Boolean>) {
 
-            itemView.findViewById<ImageView>(R.id.marsImageView).setOnClickListener {
+            itemView.findViewById<ImageView>(R.id.noteImageView).setOnClickListener {
                 onListItemClickListener.onItemClick(dataItem.first)
             }
             itemView.findViewById<ImageView>(R.id.addItemImageView).setOnClickListener { addItem() }
@@ -192,11 +176,14 @@ class RecyclerActivityAdapter(
                 .setOnClickListener { removeItem() }
             itemView.findViewById<ImageView>(R.id.moveItemDown).setOnClickListener { moveDown() }
             itemView.findViewById<ImageView>(R.id.moveItemUp).setOnClickListener { moveUp() }
-            itemView.findViewById<TextView>(R.id.marsDescriptionTextView).visibility =
-                if (dataItem.second) View.VISIBLE else View.GONE
+            //itemView.findViewById<TextView>(R.id.noteDescriptionTextView).visibility =
+            //  if (dataItem.second) View.VISIBLE else View.GONE
+            itemView.findViewById<EditText>(R.id.noteDescriptionTextView)
+                .setOnClickListener { toggleText() }
             //По нажатию на основной текст (MARS) мы изменяем данные в элементе массива и обновляем конкретный
             //элемент через метод toggleText, который пересоздаёт этот элемент, вызывая метод bind.
-            itemView.findViewById<TextView>(R.id.marsTextView).setOnClickListener { toggleText() }
+            itemView.findViewById<TextView>(R.id.noteSomeTextView)
+                .setOnClickListener { toggleText() }
             //наш бургер, за который мы перетаскиваем элемент
             itemView.findViewById<ImageView>(R.id.dragHandleImageView)
                 .setOnTouchListener { _, event ->
@@ -249,10 +236,8 @@ class RecyclerActivityAdapter(
             }
         }
 
-        //По нажатию на основной текст МАРС мы изменяем данные в элементе массива и обновляем конкретный
+        //По нажатию на основной текст ЗАМЕТКА мы изменяем данные в элементе массива и обновляем конкретный
         //элемент через метод notifyItemChanged(), который пересоздаёт этот элемент, вызывая метод bind
-        //В процессе обновления или первичной загрузки устанавливаем видимость дополнительного
-        //текста в зависимости от параметра, который лежит в Pair.
         private fun toggleText() {
             dataRecycler[layoutPosition] = dataRecycler[layoutPosition].let {
                 it.first to !it.second
@@ -275,8 +260,6 @@ class RecyclerActivityAdapter(
         override fun bind(dataItem: Pair<DataRecycler, Boolean>) {
             itemView.setOnClickListener {
                 onListItemClickListener.onItemClick(dataItem.first)
-                //data[1] = Pair(Data("Jupiter", ""), false)
-                // notifyItemChanged(1, Pair(Data("", ""), false))
             }
         }
     }
@@ -290,15 +273,14 @@ class RecyclerActivityAdapter(
 
     //константы для разных типов элементов в списке
     companion object {
-        private const val TYPE_EARTH = 0
-        private const val TYPE_MARS = 1
-        private const val TYPE_HEADER = 2
+        private const val TYPE_NOTE = 0
+        private const val TYPE_HEADER = 1
     }
 }
 
 data class DataRecycler(
     val id: Int = 0,
-    //основной текст холдера(Марс, Юпитер, Земля)
+    //основной текст холдера(Заметка)
     val someText: String = "Text",
     val someDescription: String? = "Description"
 )
