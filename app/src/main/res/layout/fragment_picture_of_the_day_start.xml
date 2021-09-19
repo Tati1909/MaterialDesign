@@ -114,11 +114,13 @@
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
-    <TextView
+        <TextView
             android:id="@+id/bottom_sheet_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_small" />
+            android:layout_margin="@dimen/margin_small"
+            android:fontFamily="@font/annie_use_your_telescope"
+            tools:text="@string/lorem_ipsum" />
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
