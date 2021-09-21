@@ -5,6 +5,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/ic_splash_screen" />
+            android:src="@drawable/ic_splash_planets" />
     </item>
 </layer-list>

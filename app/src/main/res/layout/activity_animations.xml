@@ -15,19 +15,21 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/transitions"
+            android:layout_gravity="center_horizontal"
+            android:background="#33FFFFFF"
             android:gravity="center"
+            android:text="@string/transitions"
+            android:textAlignment="center"
             android:textSize="@dimen/text_size_animations_button"
-            android:background="@color/white"/>
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/transitions_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_small"
             android:text="@string/transition"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/explode_button"
@@ -41,43 +43,50 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/transform"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/pathmotion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/pathmotion"/>
+            android:text="@string/pathmotion" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/animations_fab"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_small_XX"
             android:gravity="center"
+            android:background="#33FFFFFF"
+            android:text="@string/animations_fab"
             android:textSize="@dimen/text_size_animations_button"
-            android:background="@color/white"/>
+            android:textAlignment="center"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/animations_fab_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_small"
             android:text="@string/animations_fab"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/animations_bonus"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_small_XX"
             android:gravity="center"
+            android:background="#1AFFFFFF"
+            android:text="@string/animations_bonus"
             android:textSize="@dimen/text_size_animations_button"
-            android:background="@color/white"/>
+            android:textAlignment="center"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/animations_bonus_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_small"
             android:text="@string/animations_bonus"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

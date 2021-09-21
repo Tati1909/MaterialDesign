@@ -7,7 +7,7 @@ import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import com.example.materialdesign.databinding.ActivitySplashBinding
 
-//из SplashActivity будем завпускать основной экран MainActivity
+//из SplashActivity будем запускать основной экран MainActivity
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding

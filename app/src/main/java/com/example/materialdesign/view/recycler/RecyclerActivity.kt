@@ -48,7 +48,7 @@ class RecyclerActivity : AppCompatActivity() {
         )
 
         binding.recyclerView.adapter = adapter
-        //
+
         binding.recyclerActivityAddNoteFAB.setOnClickListener { adapter.appendItem() }
 
         //применятся для смахивания и перетаскивания элементов списка
