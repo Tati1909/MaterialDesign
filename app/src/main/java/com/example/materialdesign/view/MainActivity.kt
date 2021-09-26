@@ -31,12 +31,15 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        // Передача каждого идентификатора меню как набора идентификаторов, потому что каждый
+        // пнкт меню следует рассматривать как пункты назначения верхнего уровня.
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.navigation_home, R.id.navigation_settings)
+            setOf(R.id.pictureOfTheDayFragment, R.id.navigation_settings)
         )
+
+        //отображать заголовок на панели приложения на основе метки места назначения,кнопку вверх отображать не будем, т к есть кнопка "домой" внизу
         setupActionBarWithNavController(navController, appBarConfiguration)
+
         navView.setupWithNavController(navController)
     }
 
