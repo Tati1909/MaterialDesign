@@ -41,7 +41,8 @@ class RecyclerActivityAdapter(
         }
     }
 
-    //с помощью позиции элемента можно узнать
+    //B нашу вьюшку мы кладем значения!
+    //C помощью позиции элемента можно узнать
     //его viewType и отобразить во ViewHolder соответствующие данные
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(dataRecycler[position])
@@ -74,8 +75,8 @@ class RecyclerActivityAdapter(
         return dataRecycler.size
     }
 
-    //сначала мы получаем тип ViewType  и только потом вызывается onCreateViewHolder
-    //метод, благодаря которому мы можем всегда знать, какого типа элемент нам нужно отобразить в списке
+    //сначала мы получаем тип элемента ViewType  и только потом вызывается метод onCreateViewHolder,
+    //благодаря которому мы можем всегда знать, какого типа элемент нам нужно отобразить в списке
     //1 - TYPE_HEADER, 2 - TYPE_MARS, 3 - TYPE_EARTH
     override fun getItemViewType(position: Int): Int {
         return when {
@@ -166,6 +167,7 @@ class RecyclerActivityAdapter(
     inner class NoteViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
 
         @SuppressLint("ClickableViewAccessibility")
+        //привязать/задать значения
         override fun bind(dataItem: Pair<DataRecycler, Boolean>) {
 
             itemView.findViewById<ImageView>(R.id.noteImageView).setOnClickListener {

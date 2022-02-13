@@ -12,7 +12,8 @@ class RecyclerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecyclerBinding
 
     //isNewList будет регулировать наполнение списка
-    private var isNewList = false
+    private var isNewList: Boolean = false
+
     //перетаскивание за рукоятку
     lateinit var itemTouchHelper: ItemTouchHelper
     private lateinit var adapter: RecyclerActivityAdapter
@@ -31,7 +32,7 @@ class RecyclerActivity : AppCompatActivity() {
         dataRecycler.add(0, Pair(DataRecycler(0, "Header"), false))
 
         adapter = RecyclerActivityAdapter(
-            object : RecyclerActivityAdapter.OnListItemClickListener {
+            onListItemClickListener = object : RecyclerActivityAdapter.OnListItemClickListener {
                 override fun onItemClick(dataItemClick: DataRecycler) {
                     Toast.makeText(
                         this@RecyclerActivity, dataItemClick.someText,
@@ -39,8 +40,8 @@ class RecyclerActivity : AppCompatActivity() {
                     ).show()
                 }
             },
-            dataRecycler,
-            object : OnStartDragListener {
+            dataRecycler = dataRecycler,
+            dragListener = object : OnStartDragListener {
                 override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
                     itemTouchHelper.startDrag(viewHolder)
                 }

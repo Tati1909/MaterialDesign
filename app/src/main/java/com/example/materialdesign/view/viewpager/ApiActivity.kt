@@ -1,5 +1,6 @@
 package com.example.materialdesign.view.viewpager
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -73,6 +74,7 @@ class ApiActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("InflateParams")
     private fun setEarthTabHighlighted(layoutInflater: LayoutInflater) {
         val earth = layoutInflater.inflate(R.layout.activity_api_custom_tab_earth, null)
         earth.findViewById<AppCompatTextView>(R.id.tab_image_textview)
@@ -89,6 +91,7 @@ class ApiActivity : AppCompatActivity() {
             layoutInflater.inflate(R.layout.activity_api_custom_tab_weather,null)
     }
 
+    @SuppressLint("InflateParams")
     private fun setMarsTabHighlighted(layoutInflater: LayoutInflater) {
         val mars =
             layoutInflater.inflate(R.layout.activity_api_custom_tab_mars, null)
@@ -106,6 +109,7 @@ class ApiActivity : AppCompatActivity() {
             layoutInflater.inflate(R.layout.activity_api_custom_tab_weather, null)
     }
 
+    @SuppressLint("InflateParams")
     private fun setWeatherTabHighlighted(layoutInflater: LayoutInflater) {
         val weather =
             layoutInflater.inflate(
