@@ -20,23 +20,14 @@ class RecyclerActivityAdapter(
     private val dragListener: OnStartDragListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchHelperAdapter {
 
-    //viewType получаем из метода getItemViewType
-    //у нас 2 ViewHolder, но все они наследуются от BaseViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(viewType, parent, false)
 
         return when (viewType) {
-            TYPE_NOTE -> NoteViewHolder(
-                inflater.inflate(
-                    R.layout.activity_recycler_item_note, parent, false
-                ) as View
-            )
-            else -> HeaderViewHolder(
-                inflater.inflate(
-                    R.layout.activity_recycler_item_header, parent, false
-                ) as View
-            )
+            R.layout.activity_recycler_item_header -> HeaderViewHolder(view)
+            R.layout.activity_recycler_item_note -> NoteViewHolder(view)
+            else -> throw IllegalArgumentException("Unknown ViewHolder")
         }
     }
 
@@ -53,17 +44,12 @@ class RecyclerActivityAdapter(
         return dataRecycler.size
     }
 
-    //сначала мы получаем тип элемента ViewType  и только потом вызывается метод onCreateViewHolder,
-    //благодаря которому мы можем всегда знать, какого типа элемент нам нужно отобразить в списке
-    //1 - TYPE_HEADER, 2 - TYPE_MARS, 3 - TYPE_EARTH
+    //1 - TYPE_HEADER, 2 - Note
     override fun getItemViewType(position: Int): Int {
         return when {
             //1 элемент - это наш заголовок
-            position == 0 -> TYPE_HEADER
-            //если описания нет или оно пустое, значит, элемент относится к типу «Note»
-            dataRecycler[position].first.someDescription.isNullOrBlank() -> TYPE_NOTE
-
-            else -> TYPE_NOTE
+            position == 0 -> R.layout.activity_recycler_item_header
+            else -> R.layout.activity_recycler_item_note
         }
     }
 
@@ -79,9 +65,11 @@ class RecyclerActivityAdapter(
         notifyItemRemoved(position)
     }
 
-    //метод для внесения изменений в наш RecyclerView. Этот метод будет
+    /**
+     * метод для внесения изменений в наш RecyclerView. Этот метод будет
     //использовать DiffUtil для вычисления разницы (calculateDiff) между старой коллекцией данных и новой(newItems),
     //а также для  применения этих изменений в адаптере (dispatchUpdatesTo(adapter)).
+     */
     fun setItems(newItems: List<Pair<DataRecycler, Boolean>>) {
         val result = DiffUtil.calculateDiff(DiffUtilCallback(dataRecycler, newItems))
         dataRecycler.clear()
@@ -242,13 +230,6 @@ class RecyclerActivityAdapter(
     // Это  простой интерфейс, который возвращает данные нажатого элемента
     interface OnListItemClickListener {
         fun onItemClick(dataItemClick: DataRecycler)
-    }
-
-
-    //константы для разных типов элементов в списке
-    companion object {
-        private const val TYPE_NOTE = 0
-        private const val TYPE_HEADER = 1
     }
 }
 
