@@ -13,6 +13,14 @@ class RecyclerActivity : AppCompatActivity() {
 
     //isNewList будет регулировать наполнение списка
     private var isNewList: Boolean = false
+    private val onListItemClickListener = object : RecyclerActivityAdapter.OnListItemClickListener {
+        override fun onItemClick(dataItemClick: DataRecycler) {
+            Toast.makeText(
+                this@RecyclerActivity, dataItemClick.someText,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
     //перетаскивание за рукоятку
     lateinit var itemTouchHelper: ItemTouchHelper
@@ -24,22 +32,14 @@ class RecyclerActivity : AppCompatActivity() {
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //создали список из 2 элементов(заголовка и элемента Марс
+        //создали список из 2 элементов(заголовка и заметки)
         val dataRecycler = arrayListOf(
+            Pair(DataRecycler(0, "Header"), false),
             Pair(DataRecycler(1, "Note", "Покормить кота!!!"), false)
         )
 
-        dataRecycler.add(0, Pair(DataRecycler(0, "Header"), false))
-
         adapter = RecyclerActivityAdapter(
-            onListItemClickListener = object : RecyclerActivityAdapter.OnListItemClickListener {
-                override fun onItemClick(dataItemClick: DataRecycler) {
-                    Toast.makeText(
-                        this@RecyclerActivity, dataItemClick.someText,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            },
+            onListItemClickListener = onListItemClickListener,
             dataRecycler = dataRecycler,
             dragListener = object : OnStartDragListener {
                 override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
